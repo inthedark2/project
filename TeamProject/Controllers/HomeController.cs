@@ -17,10 +17,15 @@ namespace TeamProject.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Registration(RegistrationViewModel model)
-        {
+        //[HttpPost]
+        //public ActionResult Registration(RegistrationViewModel model)
+        //{
 
+        //}
+
+        public ActionResult Login()
+        {
+            return View();
         }
     }
 }
