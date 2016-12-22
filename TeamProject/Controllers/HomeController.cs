@@ -28,7 +28,7 @@ namespace TeamProject.Controllers
         [HttpPost]
         public ActionResult Registration(RegistrationViewModel model)
         {
-            if (userRepository.CreateUser(model.email,model.Password,model.name,model.surname,model.address,model.phone))
+            if (userRepository.CreateUser(model.email, model.Password, model.name, model.surname, model.address, model.phone))
             {
                 return RedirectToAction("index", "home");
             }
@@ -37,6 +37,16 @@ namespace TeamProject.Controllers
                 ModelState.AddModelError("", "Error");
                 return View();
             }
+        }
+        //[HttpPost]
+        //public ActionResult Registration(RegistrationViewModel model)
+        //{
+
+        //}
+
+        public ActionResult Login()
+        {
+            return View();
         }
     }
 }
