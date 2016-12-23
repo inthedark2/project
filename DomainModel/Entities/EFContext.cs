@@ -17,6 +17,7 @@ namespace DomainModel.Entities
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<Images> Images { get; set; }
         public DbSet<Basket> Basket { get; set; }
         public DbSet<ProductInBusket> ProductsInBasket { get; set; }

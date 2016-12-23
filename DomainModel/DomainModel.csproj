@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\CategoryRepository.cs" />
     <Compile Include="Concrete\PostRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Entities\Basket.cs" />
@@ -68,6 +69,14 @@
     <Compile Include="Migrations\201612210816002_Create DB.Designer.cs">
       <DependentUpon>201612210816002_Create DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612231818287_Add category table.cs" />
+    <Compile Include="Migrations\201612231818287_Add category table.Designer.cs">
+      <DependentUpon>201612231818287_Add category table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612231819458_Add category.cs" />
+    <Compile Include="Migrations\201612231819458_Add category.Designer.cs">
+      <DependentUpon>201612231819458_Add category.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +87,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612210816002_Create DB.resx">
       <DependentUpon>201612210816002_Create DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231818287_Add category table.resx">
+      <DependentUpon>201612231818287_Add category table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231819458_Add category.resx">
+      <DependentUpon>201612231819458_Add category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
