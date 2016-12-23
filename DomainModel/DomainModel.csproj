@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\PostRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Entities\Basket.cs" />
+    <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\EFContext.cs" />
     <Compile Include="Entities\Images.cs" />
     <Compile Include="Entities\Product.cs" />
