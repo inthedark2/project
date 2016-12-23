@@ -30,5 +30,16 @@ namespace DomainModel.Concrete
             }
             return false;
         }
+        public Category GetCategoryById(int id)
+        {
+            return context.Category.Where(c=>c.Id==id).FirstOrDefault();
+        }
+        public void EditCategory(int id,string name,string description)
+        {
+            Category category = context.Category.Where(c => c.Id == id).First();
+            category.Name = name;
+            category.Description = description;
+            context.SaveChanges();
+        }
     }
 }

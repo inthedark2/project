@@ -49,5 +49,27 @@ namespace TeamProject.Controllers
                 return View();
             }
         }
+        public ActionResult EditCategory(int id)
+        {
+            Category category = categoryRepository.GetCategoryById(id);
+            if (category!=null)
+            {
+                CategoryViewModel model = new CategoryViewModel() { Id = category.Id, Name = category.Name, Description = category.Description };
+                return View(model);
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditCategory(CategoryViewModel model)
+        {
+            if (categoryRepository.GetCategoryById(model.Id)!=null)
+            {
+                categoryRepository.EditCategory(model.Id, model.Name, model.Description);
+                RedirectToAction("Category", "Admin");
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
+        }
     }
 }
