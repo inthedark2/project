@@ -1,7 +1,12 @@
-﻿using DomainModel.Concrete;
+﻿using DomainModel;
+using DomainModel.Concrete;
 using DomainModel.Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,8 +31,45 @@ namespace TeamProject.Controllers
         }
         public ActionResult Products()
         {
-            return View(from data in postRepository.GetAllProduct() select new ProductsViewModel { Id=data.Id,title=data.Title,category=data.category.Name,Quantity=data.Quantity,Time=data.AddTime.Date});
+            return View(from data in postRepository.GetAllProduct() select new ProductsViewModel { Id = data.Id, title = data.Title, category = data.category.Name, Quantity = data.Quantity, Time = data.AddTime });
         }
+        public ActionResult AddProduct()
+        {
+            AddProductModel model = new AddProductModel();
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddProduct(AddProductModel model, HttpPostedFileBase[] Image)
+        {
+            string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
+            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path))
+            {
+                return RedirectToAction("Products", "Admin");
+            }
+            else
+                return View(model);
+        }
+        public ActionResult EditProduct(int id)
+        {
+            Product product = postRepository.GetProductById(id);
+            if (product!=null)
+            {
+                EditProductModel model = new EditProductModel() { Id = product.Id, Title = product.Title, Description = product.Description, IsIn = product.IsIn, Quantity = product.Quantity, categoryId = product.CategoryId };
+                ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
+                return View(model);
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditProduct(EditProductModel model, HttpPostedFileBase[] Image)
+        {
+            string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
+            postRepository.DeleteImages(model.Id, path);
+            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path);
+            return RedirectToAction("Products", "admin");
+        }
+
         public ActionResult Category()
         {
             return View(from data in categoryRepository.GetAllCategory() select new CategoryViewModel { Id = data.Id, Name = data.Name, Quantity = data.Posts.Count });
@@ -39,7 +81,7 @@ namespace TeamProject.Controllers
         [HttpPost]
         public ActionResult AddCategory(AddCategoryModel model)
         {
-            if (categoryRepository.AddCategory(model.Name,model.Description))
+            if (categoryRepository.AddCategory(model.Name, model.Description))
             {
                 return RedirectToAction("category", "Admin");
             }
@@ -52,7 +94,7 @@ namespace TeamProject.Controllers
         public ActionResult EditCategory(int id)
         {
             Category category = categoryRepository.GetCategoryById(id);
-            if (category!=null)
+            if (category != null)
             {
                 CategoryViewModel model = new CategoryViewModel() { Id = category.Id, Name = category.Name, Description = category.Description };
                 return View(model);
@@ -63,7 +105,7 @@ namespace TeamProject.Controllers
         [HttpPost]
         public ActionResult EditCategory(CategoryViewModel model)
         {
-            if (categoryRepository.GetCategoryById(model.Id)!=null)
+            if (categoryRepository.GetCategoryById(model.Id) != null)
             {
                 categoryRepository.EditCategory(model.Id, model.Name, model.Description);
                 RedirectToAction("Category", "Admin");
