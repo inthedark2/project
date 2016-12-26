@@ -67,6 +67,7 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserProfile.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Migrations\201612210816002_Create DB.cs" />
     <Compile Include="Migrations\201612210816002_Create DB.Designer.cs">
       <DependentUpon>201612210816002_Create DB.cs</DependentUpon>

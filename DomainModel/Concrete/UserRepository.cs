@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Concrete
 {
-    public class UserRepository
+    public class UserRepository: IUserRepository
     {
         EFContext context;
         public UserRepository(EFContext context)
@@ -51,5 +51,26 @@ namespace DomainModel.Concrete
             context.SaveChanges();
         }
 
+        public User FindUser(string email, string password)
+        {
+            User user= GetUserByEmail(email);
+            if(user!=null)
+            {
+                var crypto = new SimpleCrypto.PBKDF2();
+                if (user.password == crypto.Compute(user.password, user.PasswordSalt))
+                    return user;
+            }
+            return null;
+        }
+
+        public IQueryable<User> Users()
+        {
+            return context.Users;
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return this.Users().SingleOrDefault(u=>u.email==email);
+        }
     }
 }
