@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Helpers;
 using DomainModel;
+using DomainModel.Abstract;
 
 namespace BLL.Concrete
 {
