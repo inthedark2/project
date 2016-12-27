@@ -96,22 +96,33 @@ namespace TeamProject.Controllers
             Category category = categoryRepository.GetCategoryById(id);
             if (category != null)
             {
-                CategoryViewModel model = new CategoryViewModel() { Id = category.Id, Name = category.Name, Description = category.Description };
+                EditCtegoryModel model = new EditCtegoryModel() { Id = category.Id, Name = category.Name, Description = category.Description };
                 return View(model);
             }
             ModelState.AddModelError("", "Сталась помилка");
             return View();
         }
         [HttpPost]
-        public ActionResult EditCategory(CategoryViewModel model)
+        public ActionResult EditCategory(EditCtegoryModel model)
         {
             if (categoryRepository.GetCategoryById(model.Id) != null)
             {
                 categoryRepository.EditCategory(model.Id, model.Name, model.Description);
-                RedirectToAction("Category", "Admin");
+                return RedirectToAction("Category", "Admin");
             }
             ModelState.AddModelError("", "Сталась помилка");
             return View();
+        }
+        [HttpPost]
+        public JsonResult DeleteCategory(int id)
+        {
+            var delCat = categoryRepository.GetCategoryById(id);
+            if (delCat!=null&&delCat.Posts.Count==0)
+            {
+                categoryRepository.RemoveCategory(delCat);
+                return Json("Succsess");
+            }
+            return Json("Error");
         }
     }
 }

@@ -41,5 +41,10 @@ namespace DomainModel.Concrete
             category.Description = description;
             context.SaveChanges();
         }
+        public void RemoveCategory(Category cat)
+        {
+            context.Category.Remove(cat);
+            context.SaveChanges();
+        }
     }
 }

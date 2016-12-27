@@ -29,10 +29,32 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditCategory", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "DeleteCategory", new { id=item.Id }, new { @class = "deleteCategory", id = item.Id, name = item.Id })
         </td>
     </tr>
 }
 
 </table>
+@section Scripts
+{
+    <script>
+        $(".deleteCategory").on("click", function () {
+            var r = confirm("Delete?");
+            if (r==true)
+            {
+                var elm = $(this);
+                var catId = elm.attr("id");
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/DeleteCategory',
+                    data: { id: catId },
+                    success: function (result) {
+                        location.reload();
+                    }
+                })
+            }
+            return false;
+        })
+
+    </script>
+}
