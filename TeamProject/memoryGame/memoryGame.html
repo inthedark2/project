@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" ng-app="memoryGame">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="app.css" />
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+    <script src="bower_components/cordova.js"></script>
+	<script src="app.module.js"></script>
+    <script src="memory-list/memory-list.module.js"></script>
+    <script src="memory-list/memory-list.component.js"></script>
+    <script src="memory-detail/memory-detail.module.js"></script>
+    <script src="memory-detail/memory-detail.component.js"></script>
+    <script src="oauth/oauth.module.js"></script>
+    <script src="oauth/oauth.component.js"></script>
+    <script src="memori-factory/memori-factory.js"></script>
+  </head>
+  <body id="body">
+
+    <ng-view></ng-view>
+  </body>
+</html>

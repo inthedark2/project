@@ -1,0 +1,135 @@
+#body {
+    margin: 0px;
+    background: url(img/fon.jpg);
+    width: 100%;
+    display: block;
+    outline: 2px dashed rgba(255,255,255,0.8);
+    outline-offset: -10px;
+    padding: 20px;
+    min-height: 97vh;
+}
+.name {
+    width: 100%;
+    text-align: left;
+}
+.name h1{
+    font-style: italic;
+    font-size: 4vh;
+    color: blue;
+    display: inline;
+    margin-right: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.game h2{
+    width: 100%;
+    text-align: center;
+    color: #3fdb9b;
+    font-size: 3vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.clears {
+    clear: both;
+    float: none;
+    display: block;
+    width: 100%;
+    min-height: 1px;
+}
+.red {
+    color: #00b3ee;
+}
+.name img {
+    height: 4vh;
+}
+
+.clear {
+    clear: both;
+    width: 100%;
+    height: 1px;
+    float: none;
+}
+
+.center-block {
+    margin-left: 3vw;
+}
+
+.rotor{
+    margin: 1vw;
+    width: 28vw;
+    height: 15vh;
+    position: relative;
+    -webkit-perspective:218vw;
+    -moz-perspective:218vw;
+    -o-perspective:218vw;
+    perspective:218vw;
+}
+.rotor>.rotor-flip{
+    position: absolute;
+    width:100%;
+    height:100%;
+    -webkit-backface-visibility:hidden;
+    -webkit-transition:-webkit-transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -moz-backface-visibility:hidden;
+    -moz-transition:-moz-transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -o-backface-visibility:hidden;
+    -o-transition:-o-transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backface-visibility:hidden;
+    transition:transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.next{
+    -webkit-transform:rotateY(-180deg);
+    -moz-transform:rotateY(-180deg);
+    -o-transform:rotateY(-180deg);
+    transform:rotateY(-180deg);
+}
+.flipped {
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg);
+    -o-transform:rotateY(180deg);
+    webkit-transform:rotateY(180deg);
+}
+
+div {
+    float: left;
+}
+.winers {
+    background: linear-gradient(to top, #679397, #2aede7);
+    height: 75vh;
+    margin-top: 30vh;
+    width: 100vw;
+    margin: 5vh -20px;
+}
+.winers h2 {
+    width: 100vw;
+    font-size: 7vh;
+    text-align: center;
+    color: #eedf29;
+    margin: 2vh auto;
+    display: block;
+}
+.center-block h2 {
+    width: 100vw;
+    font-size: 3vh;
+    text-align: center;
+    color: #fbfcfc;
+}
+.winers button {
+    border-radius: 50% 0%;
+    width: 64vw;
+    height: 15vh;
+    background: #07311c;
+    color: #edf3f6;
+    font-style: italic;
+    font-size: 4vh;
+    margin-left: 15vw;
+    margin-top: 10vh;
+}
+.bott {
+    position: absolute;
+    bottom: 2vh;
+    right : 1vw;
+    font-size: 2vh;
+
+}
+/**/

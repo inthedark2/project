@@ -1,0 +1,35 @@
+<div class="page">
+    <div class="name">
+        <h1>Memory <span class="red">Game</span></h1>
+        <img class="logo" src="img/shell.png">
+    </div>
+    <div ng-hide="game" class="game">
+        <div class="clears text">
+            <h2>Attempts : <span class="attempts">{{memorys.clickCount}} </span> <span class="red">Open: {{memorys.matchesCells}}</span>
+            </h2>
+        </div>
+        <div class="field row">
+            <div class="center-block">
+                <div class="square" ng-repeat="n in $ctrl.arr track by $index">
+                    <memory-detail></memory-detail>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="winers" class="row text winers">
+        <div>
+            <h2>You win !!!</h2>
+        </div>
+        <div class="field row clears">
+            <div class="center-block">
+                <h2>Attempts : <span class="attempts">{{memorys.clickCount}} </span> Open: {{memorys.matchesCells}}</h2>
+            </div>
+        </div>
+        <div class="field row clears">
+            <h2>Congratulations !!!</h2>
+        </div>
+        <a href="#!/{{winer}}">
+            <button> Start new Game</button>
+        </a>
+    </div>
+</div>
