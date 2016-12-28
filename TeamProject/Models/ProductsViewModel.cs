@@ -18,5 +18,6 @@ namespace TeamProject.Models
         public int Quantity {get;set;}
         [Display(Name = "Time")]
         public DateTime Time { get; set; }
+        public IEnumerable<string> Photos { get; set; }  
     }
 }

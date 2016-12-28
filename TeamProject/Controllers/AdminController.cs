@@ -55,7 +55,7 @@ namespace TeamProject.Controllers
         public ActionResult EditProduct(int id)
         {
             Product product = postRepository.GetProductById(id);
-            if (product!=null)
+            if (product != null)
             {
                 EditProductModel model = new EditProductModel() { Id = product.Id, Title = product.Title, Description = product.Description, IsIn = product.IsIn, Quantity = product.Quantity, categoryId = product.CategoryId };
                 ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
@@ -68,14 +68,14 @@ namespace TeamProject.Controllers
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
             postRepository.DeleteImages(model.Id, path);
-            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path);
+            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity, model.IsIn, Image, model.categoryId, path);
             return RedirectToAction("Products", "admin");
         }
         [HttpPost]
         public JsonResult DeleteProduct(int id)
         {
             var productToDel = postRepository.GetProductById(id);
-            if (productToDel!=null)
+            if (productToDel != null)
             {
                 string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
                 postRepository.RemoveProduct(productToDel, path);
@@ -131,7 +131,7 @@ namespace TeamProject.Controllers
         public JsonResult DeleteCategory(int id)
         {
             var delCat = categoryRepository.GetCategoryById(id);
-            if (delCat!=null&&delCat.Posts.Count==0)
+            if (delCat != null && delCat.Posts.Count == 0)
             {
                 categoryRepository.RemoveCategory(delCat);
                 return Json("Succsess");
@@ -140,7 +140,26 @@ namespace TeamProject.Controllers
         }
         public ActionResult Users()
         {
-            return View(from data in userRepository.Users() select new UsersViewModel() { Id=data.id,Email=data.email,time=data.registeredDate});
+            return View(from data in userRepository.Users() select new UsersViewModel() { Id = data.id, Email = data.email, time = data.registeredDate });
+        }
+        public ActionResult DetailsProduct(int id)
+        {
+            var product = postRepository.GetProductById(id);
+            ProductsViewModel model = new ProductsViewModel()
+            {
+                Id = product.Id,
+                title = product.Title,
+                category = product.category.Name,
+                Quantity = product.Quantity,
+                Time = product.AddTime,
+                Photos = product.Image.Select(n => n.Name)
+            };
+            return View(model);
+        }
+        public ActionResult SearchProduct(string name)
+        {
+            var allproduct = postRepository.GetAllProduct().Where(a => a.Title.Contains(name)).ToList();
+            return View(allproduct);
         }
     }
 }
