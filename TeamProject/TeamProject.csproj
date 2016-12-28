@@ -148,6 +148,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\EditCtegoryModel.cs" />
     <Compile Include="Models\EditProductModel.cs" />
+    <Compile Include="Models\HomeProductViewModel.cs" />
     <Compile Include="Models\IndexHomeViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProductsViewModel.cs" />
@@ -161,6 +162,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\flexslider.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style_admin.css" />
@@ -176,6 +178,12 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Images\free-rn-distance-2-running-shoe.jpg" />
+    <Content Include="Images\free-rn-distance-2-running-shoe3.jpg" />
+    <Content Include="Images\metcon-dsx-flyknit-training-shoe.jpg" />
+    <Content Include="Images\metcon-dsx-flyknit-training-shoe2.jpg" />
+    <Content Include="Images\zoom-flyknit-streak-running-shoe.jpg" />
+    <Content Include="Images\zoom-flyknit-streak-running-shoe2.jpg" />
     <Content Include="memoryGame\bower_components\angular-animate\.bower.json" />
     <Content Include="memoryGame\bower_components\angular-animate\angular-animate.min.js.map" />
     <Content Include="memoryGame\bower_components\angular-animate\bower.json" />
@@ -513,14 +521,15 @@
     <Content Include="memoryGame\not-pix.jpg" />
     <Content Include="memoryGame\oauth\oauth.component.js" />
     <Content Include="memoryGame\oauth\oauth.module.js" />
-    <Content Include="MiniImages\6381158400.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\imagezoom.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.flexslider.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -557,11 +566,12 @@
     <Content Include="Views\Admin\EditProduct.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\DetailsProduct.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ContentImages\" />
-    <Folder Include="Images\" />
+    <Folder Include="MiniImages\" />
     <Folder Include="Views\TestAutoFac\" />
   </ItemGroup>
   <ItemGroup>

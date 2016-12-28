@@ -44,7 +44,13 @@ namespace TeamProject
                       "~/Scripts/jquery-3.1.1.js",
                       "~/Scripts/modernizr-2.8.3.js"
                       ));
-
+            bundles.Add(new ScriptBundle("~/bundler/details").Include(
+                    "~/Scripts/imagezoom.js",
+                    "~/Scripts/jquery.flexslider.js"
+                ));
+            bundles.Add(new StyleBundle("~/Content/Details").Include(
+                "~/Content/flexslider.css"
+                ));
         }
     }
 }

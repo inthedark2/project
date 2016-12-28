@@ -47,5 +47,11 @@ namespace TeamProject.Controllers
         {
             return View();
         }
+        public ActionResult Details(int id)
+        {
+            Product product = postRepository.GetProductById(id);
+            HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image };
+            return View(model);
+        }
     }
 }

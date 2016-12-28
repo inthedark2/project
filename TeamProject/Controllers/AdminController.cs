@@ -58,7 +58,7 @@ namespace TeamProject.Controllers
             Product product = postRepository.GetProductById(id);
             if (product != null)
             {
-                EditProductModel model = new EditProductModel() { Id = product.Id, Title = product.Title, Description = product.Description, IsIn = product.IsIn, Quantity = product.Quantity, categoryId = product.CategoryId };
+                EditProductModel model = new EditProductModel() { Id = product.Id, Title = product.Title, Description = product.Description, IsIn = product.IsIn, Quantity = product.Quantity,Price=product.Price, categoryId = product.CategoryId };
                 ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
                 return View(model);
             }

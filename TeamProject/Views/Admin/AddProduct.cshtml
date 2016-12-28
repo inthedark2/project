@@ -23,7 +23,7 @@
         <div class="form-group">
             <div>
                 @Html.LabelFor(model => model.categoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-2">
+                <div class="col-md-1">
                     @Html.DropDownListFor(model => model.categoryId, new SelectList(ViewBag.ListCategory, "Id", "Name", Model.categoryId), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.categoryId, "", new { @class = "text-danger" })
                 </div>
@@ -35,7 +35,7 @@
                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <input type="file" required multiple accept="image/*" name="Image" id="Image" />
             </div>
             <div>
