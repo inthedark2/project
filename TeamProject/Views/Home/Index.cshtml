@@ -5,6 +5,7 @@
 }
 @ViewBag.Message
 <h2>Index</h2>
+<button id="btnGame" class="col-lg-2">Game</button>
 <br />
 <br />
 <br />
@@ -18,3 +19,11 @@
 
 <br />
 
+<script>
+    var btnGame = document.getElementById('btnGame');
+    console.log('btnGame == ', btnGame);
+    btnGame.addEventListener('click', (function () {
+        console.log('Nuck-nuck!');
+        window.open('http://localhost:3092/memoryGame/index.html#!/')
+    }));
+</script>

@@ -12,6 +12,7 @@ namespace DomainModel.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string MiniImage { get; set; }
         public int ProductID { get; set; }
         public Product Product { get; set; }
     }

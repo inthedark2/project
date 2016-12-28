@@ -18,11 +18,13 @@ namespace TeamProject.Controllers
     {
         private readonly PostRepository postRepository;
         public readonly CategoryRepository categoryRepository;
+        private readonly UserRepository userRepository;
         public AdminController()
         {
             EFContext context = new EFContext();
             postRepository = new PostRepository(context);
             categoryRepository = new CategoryRepository(context);
+            userRepository = new UserRepository(context);
 
         }
         public ActionResult Index()
@@ -43,7 +45,8 @@ namespace TeamProject.Controllers
         public ActionResult AddProduct(AddProductModel model, HttpPostedFileBase[] Image)
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
-            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path))
+            string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path,miniPath))
             {
                 return RedirectToAction("Products", "Admin");
             }
@@ -53,7 +56,7 @@ namespace TeamProject.Controllers
         public ActionResult EditProduct(int id)
         {
             Product product = postRepository.GetProductById(id);
-            if (product!=null)
+            if (product != null)
             {
                 EditProductModel model = new EditProductModel() { Id = product.Id, Title = product.Title, Description = product.Description, IsIn = product.IsIn, Quantity = product.Quantity, categoryId = product.CategoryId };
                 ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
@@ -65,9 +68,25 @@ namespace TeamProject.Controllers
         public ActionResult EditProduct(EditProductModel model, HttpPostedFileBase[] Image)
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
-            postRepository.DeleteImages(model.Id, path);
-            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path);
+
+            string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+            postRepository.DeleteImages(model.Id, path, miniPath);
+            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path, miniPath);
+
             return RedirectToAction("Products", "admin");
+        }
+        [HttpPost]
+        public JsonResult DeleteProduct(int id)
+        {
+            var productToDel = postRepository.GetProductById(id);
+            if (productToDel != null)
+            {
+                string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
+                string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+                postRepository.RemoveProduct(productToDel, path, miniPath);
+                return Json("Succsess");
+            }
+            return Json("Error");
         }
 
         public ActionResult Category()
@@ -117,12 +136,35 @@ namespace TeamProject.Controllers
         public JsonResult DeleteCategory(int id)
         {
             var delCat = categoryRepository.GetCategoryById(id);
-            if (delCat!=null&&delCat.Posts.Count==0)
+            if (delCat != null && delCat.Posts.Count == 0)
             {
                 categoryRepository.RemoveCategory(delCat);
                 return Json("Succsess");
             }
             return Json("Error");
+        }
+        public ActionResult Users()
+        {
+            return View(from data in userRepository.Users() select new UsersViewModel() { Id = data.id, Email = data.email, time = data.registeredDate });
+        }
+        public ActionResult DetailsProduct(int id)
+        {
+            var product = postRepository.GetProductById(id);
+            ProductsViewModel model = new ProductsViewModel()
+            {
+                Id = product.Id,
+                title = product.Title,
+                category = product.category.Name,
+                Quantity = product.Quantity,
+                Time = product.AddTime,
+                Photos = product.Image.Select(n => n.Name)
+            };
+            return View(model);
+        }
+        public ActionResult SearchProduct(string name)
+        {
+            var allproduct = postRepository.GetAllProduct().Where(a => a.Title.Contains(name)).ToList();
+            return View(allproduct);
         }
     }
 }
