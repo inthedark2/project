@@ -22,8 +22,8 @@ namespace TeamProject.Controllers
         }
         public ActionResult Index()
         {
-            string path = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
-            return View(from data in postRepository.GetAllProduct() select new );
+            string path = "/MiniImages/";
+            return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
         }    
         public ActionResult Registration()
         {

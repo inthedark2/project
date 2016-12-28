@@ -23,16 +23,16 @@ namespace DomainModel.Concrete
         {
             return from data in context.Products orderby data.Id descending select data;
         }
-        public bool AddProduct(string title,string description, HttpPostedFileBase[] Images, int quantity,bool isIn,int categoryId,string path,string miniImages)
+        public bool AddProduct(string title,string description, HttpPostedFileBase[] Images, int quantity,bool isIn,int categoryId,double price,string path,string miniImages)
         {
-            Product product = new Product() { Title = title, Description = description, Quantity = quantity, IsIn = isIn, CategoryId = categoryId, AddTime = DateTime.Now};
+            Product product = new Product() { Title = title, Description = description, Quantity = quantity, IsIn = isIn, CategoryId = categoryId, AddTime = DateTime.Now,Price=price};
             context.Products.Add(product);
             context.SaveChanges();
             SaveImages(Images, product.Id, path,1080,1920, miniImages, 400, 600);
             context.SaveChanges();
             return true;
         }
-        public void EditProduct(int id, string title, string description, int quantity, bool isIn, HttpPostedFileBase[] Image, int categoryId, string path, string miniImages)
+        public void EditProduct(int id, string title, string description, int quantity, bool isIn, HttpPostedFileBase[] Image, int categoryId,double price, string path, string miniImages)
         {
             Product product = GetProductById(id);
             product.Title = title;
@@ -40,6 +40,7 @@ namespace DomainModel.Concrete
             product.Quantity = quantity;
             product.IsIn = isIn;
             product.CategoryId = categoryId;
+            product.Price = price;
             SaveImages(Image, id, path,1080,1920, miniImages, 400, 600);
             context.SaveChanges();
         }

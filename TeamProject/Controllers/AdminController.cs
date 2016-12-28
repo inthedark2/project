@@ -33,7 +33,7 @@ namespace TeamProject.Controllers
         }
         public ActionResult Products()
         {
-            return View(from data in postRepository.GetAllProduct() select new ProductsViewModel { Id = data.Id, title = data.Title, category = data.category.Name, Quantity = data.Quantity, Time = data.AddTime });
+            return View(from data in postRepository.GetAllProduct() select new ProductsViewModel { Id = data.Id, title = data.Title, category = data.category.Name, Quantity = data.Quantity, Time = data.AddTime,Price=data.Price });
         }
         public ActionResult AddProduct()
         {
@@ -46,7 +46,7 @@ namespace TeamProject.Controllers
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
             string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
-            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path,miniPath))
+            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId,model.Price, path,miniPath))
             {
                 return RedirectToAction("Products", "Admin");
             }
@@ -71,7 +71,7 @@ namespace TeamProject.Controllers
 
             string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
             postRepository.DeleteImages(model.Id, path, miniPath);
-            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path, miniPath);
+            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId,model.Price, path, miniPath);
 
             return RedirectToAction("Products", "admin");
         }
