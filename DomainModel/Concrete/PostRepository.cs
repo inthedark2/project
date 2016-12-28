@@ -98,6 +98,11 @@ namespace DomainModel.Concrete
         {
             context.Images.Remove(img);
         }
-        
+        public void RemoveProduct(Product product,string path)
+        {
+            DeleteImages(product.Id, path);
+            context.Products.Remove(product);
+            context.SaveChanges();
+        }
     }
 }
