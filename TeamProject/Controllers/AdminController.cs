@@ -18,11 +18,13 @@ namespace TeamProject.Controllers
     {
         private readonly PostRepository postRepository;
         public readonly CategoryRepository categoryRepository;
+        private readonly UserRepository userRepository;
         public AdminController()
         {
             EFContext context = new EFContext();
             postRepository = new PostRepository(context);
             categoryRepository = new CategoryRepository(context);
+            userRepository = new UserRepository(context);
 
         }
         public ActionResult Index()
@@ -68,6 +70,18 @@ namespace TeamProject.Controllers
             postRepository.DeleteImages(model.Id, path);
             postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path);
             return RedirectToAction("Products", "admin");
+        }
+        [HttpPost]
+        public JsonResult DeleteProduct(int id)
+        {
+            var productToDel = postRepository.GetProductById(id);
+            if (productToDel!=null)
+            {
+                string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
+                postRepository.RemoveProduct(productToDel, path);
+                return Json("Succsess");
+            }
+            return Json("Error");
         }
 
         public ActionResult Category()
@@ -123,6 +137,10 @@ namespace TeamProject.Controllers
                 return Json("Succsess");
             }
             return Json("Error");
+        }
+        public ActionResult Users()
+        {
+            return View(from data in userRepository.Users() select new UsersViewModel() { Id=data.id,Email=data.email,time=data.registeredDate});
         }
     }
 }
