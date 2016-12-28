@@ -45,7 +45,8 @@ namespace TeamProject.Controllers
         public ActionResult AddProduct(AddProductModel model, HttpPostedFileBase[] Image)
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
-            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path))
+            string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+            if (postRepository.AddProduct(model.Title, model.Description, Image, model.Quantity, model.IsIn, model.categoryId, path,miniPath))
             {
                 return RedirectToAction("Products", "Admin");
             }
@@ -67,8 +68,11 @@ namespace TeamProject.Controllers
         public ActionResult EditProduct(EditProductModel model, HttpPostedFileBase[] Image)
         {
             string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
-            postRepository.DeleteImages(model.Id, path);
-            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity, model.IsIn, Image, model.categoryId, path);
+
+            string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+            postRepository.DeleteImages(model.Id, path, miniPath);
+            postRepository.EditProduct(model.Id, model.Title, model.Description, model.Quantity,model.IsIn, Image, model.categoryId, path, miniPath);
+
             return RedirectToAction("Products", "admin");
         }
         [HttpPost]
@@ -78,7 +82,8 @@ namespace TeamProject.Controllers
             if (productToDel != null)
             {
                 string path = Server.MapPath(ConfigurationManager.AppSettings["imagesPath"]);
-                postRepository.RemoveProduct(productToDel, path);
+                string miniPath = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+                postRepository.RemoveProduct(productToDel, path, miniPath);
                 return Json("Succsess");
             }
             return Json("Error");

@@ -512,6 +512,7 @@
     <Content Include="memoryGame\not-pix.jpg" />
     <Content Include="memoryGame\oauth\oauth.component.js" />
     <Content Include="memoryGame\oauth\oauth.module.js" />
+    <Content Include="MiniImages\6381158400.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

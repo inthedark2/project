@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201612231819458_Add category.Designer.cs">
       <DependentUpon>201612231819458_Add category.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612280755205_add mini images.cs" />
+    <Compile Include="Migrations\201612280755205_add mini images.Designer.cs">
+      <DependentUpon>201612280755205_add mini images.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkImage.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612231819458_Add category.resx">
       <DependentUpon>201612231819458_Add category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612280755205_add mini images.resx">
+      <DependentUpon>201612280755205_add mini images.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
