@@ -19,5 +19,7 @@ namespace TeamProject.Models
         public bool IsIn { get; set; }
         [Required, Display(Name = "Select category")]
         public int categoryId { get; set; }
+        [Required,Display(Name ="Price")]
+        public double Price { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using DomainModel.Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,14 +13,17 @@ namespace TeamProject.Controllers
     public class HomeController : Controller
     {
         private readonly UserRepository userRepository;
+        private readonly PostRepository postRepository;
         public HomeController()
         {
             EFContext context = new EFContext();
             userRepository = new UserRepository(context);
+            postRepository = new PostRepository(context);
         }
         public ActionResult Index()
         {
-            return View();
+            string path = Server.MapPath(ConfigurationManager.AppSettings["MiniImages"]);
+            return View(from data in postRepository.GetAllProduct() select new );
         }    
         public ActionResult Registration()
         {

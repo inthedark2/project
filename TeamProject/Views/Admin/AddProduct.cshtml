@@ -28,6 +28,13 @@
                     @Html.ValidationMessageFor(model => model.categoryId, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div>
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-1">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <div class="col-md-2">
                 <input type="file" required multiple accept="image/*" name="Image" id="Image" />
             </div>

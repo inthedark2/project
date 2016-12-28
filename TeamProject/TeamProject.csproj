@@ -148,6 +148,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\EditCtegoryModel.cs" />
     <Compile Include="Models\EditProductModel.cs" />
+    <Compile Include="Models\IndexHomeViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />

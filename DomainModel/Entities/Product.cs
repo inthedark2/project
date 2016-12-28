@@ -20,9 +20,10 @@ namespace DomainModel.Entities
         public int Quantity { get; set; }
         public bool IsIn { get; set; }
         public DateTime AddTime { get; set; }
+        [Required]
+        public double Price { get; set; }
         public ICollection<Images> Image { get; set; }
         public int CategoryId { get; set; }
-
         [ForeignKey("CategoryId")]
         public virtual Category category { get; set; }
 
