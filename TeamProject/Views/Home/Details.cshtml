@@ -8,17 +8,28 @@
 <div class="showcase-grid">
     <div class="container">
         <div class="col-md-8 showcase">
-            <div class="flexslider">
-                <ul class="slides">
-                    @foreach (var img in Model.images)
-                    {
-                        <li data-thumb="/MiniImages/@img.MiniImage">
-                            <div class="thumb-image"> <img src="/Images/@img.Name" data-imagezoom="true" class="img-responsive"> </div>
-                        </li>
-                    }
-                </ul>
-                <div class="clearfix"></div>
+            <img id="img1" src="/MiniImages/@Model.images.FirstOrDefault().MiniImage" data-zoom-image="/Images/@Model.images.FirstOrDefault().Name"/>
+            <div id="gal">
+                @for (int i=1;i<Model.images.Count;i++)
+                {
+                    <a href="#" data-image="/MiniImages/@Model.images.ElementAt(i).MiniImage" data-zoom-image="/Images/@Model.images.ElementAt(i).Name" >
+                        <img id="img1" src="/MiniImages/@Model.images.ElementAt(i).MiniImage" />
+                    </a>
+                }
             </div>
+            @*<div class="flexslider">
+                    <ul class="slides">
+                        @foreach (var img in Model.images)
+                        {
+                            <li data-thumb="/MiniImages/@img.MiniImage">
+                                <img src="/Images/@img.Name" data-imagezoom="true" class="img-responsive">
+                            </li>
+                        }
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>*@
+
+            <img />
         </div>
         <div class="col-md-4 showcase">
             <div class="showcase-rt-top">
@@ -26,15 +37,7 @@
                     <h3>@Model.Title</h3>
                     <h4>&#36;@Model.Price</h4>
                 </div>
-                <div class="pull-left rating-stars">
-                    <ul>
-                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a></li>
-                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a></li>
-                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a></li>
-                    </ul>
-                </div>
+
                 <div class="clearfix"></div>
             </div>
 
@@ -45,13 +48,24 @@
 
 @section Scripts
 {
+
     <script>
-        // Can also be used with $(document).ready()
-        $(window).load(function () {
-            $('.flexslider').flexslider({
-                animation: "slide",
-                controlNav: "thumbnails"
-            });
+        $("#img1").elevateZoom({ gallery: 'gal', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true, loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif' });
+
+        //pass the images to Fancybox
+        $("#img1").bind("click", function (e) {
+            var ez = $('#img1').data('elevateZoom');
+            $.fancybox(ez.getGalleryList());
+            return false;
         });
     </script>
+    @*<script>
+            // Can also be used with $(document).ready()
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: "thumbnails"
+                });
+            });
+        </script>*@
 }

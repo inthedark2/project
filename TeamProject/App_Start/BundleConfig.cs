@@ -46,7 +46,8 @@ namespace TeamProject
                       ));
             bundles.Add(new ScriptBundle("~/bundler/details").Include(
                     "~/Scripts/imagezoom.js",
-                    "~/Scripts/jquery.flexslider.js"
+                    "~/Scripts/jquery.flexslider.js",
+                    "~/Scripts/jquery.elevatezoom.js"
                 ));
             bundles.Add(new StyleBundle("~/Content/Details").Include(
                 "~/Content/flexslider.css"
