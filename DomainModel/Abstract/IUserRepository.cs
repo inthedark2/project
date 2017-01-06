@@ -9,7 +9,7 @@ namespace DomainModel.Abstract
 {
     public interface IUserRepository
     {
-        User FindUser(string email, string password);
+        bool FindUser(string email, string password);
         IQueryable<User> Users();
         User GetUserByEmail(string email);
     }

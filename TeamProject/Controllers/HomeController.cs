@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using TeamProject.Models;
 
 namespace TeamProject.Controllers
@@ -47,11 +48,34 @@ namespace TeamProject.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (userRepository.FindUser(model.email,model.Password))
+                {
+                    FormsAuthentication.RedirectFromLoginPage(model.email, true);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login and password incorrect.");
+                }
+            }
+            return View(model);
+        }
         public ActionResult Details(int id)
         {
             Product product = postRepository.GetProductById(id);
             HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image };
             return View(model);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

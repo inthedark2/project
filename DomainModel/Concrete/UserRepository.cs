@@ -52,16 +52,16 @@ namespace DomainModel.Concrete
             context.SaveChanges();
         }
 
-        public User FindUser(string email, string password)
+        public bool FindUser(string email, string password)
         {
             User user= GetUserByEmail(email);
             if(user!=null)
             {
                 var crypto = new SimpleCrypto.PBKDF2();
-                if (user.password == crypto.Compute(user.password, user.PasswordSalt))
-                    return user;
+                if (user.password == crypto.Compute(password, user.PasswordSalt))
+                    return true;
             }
-            return null;
+            return false;
         }
 
         public IQueryable<User> Users()

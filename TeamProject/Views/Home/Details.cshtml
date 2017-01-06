@@ -8,28 +8,15 @@
 <div class="showcase-grid">
     <div class="container">
         <div class="col-md-8 showcase">
-            <img id="img1" src="/MiniImages/@Model.images.FirstOrDefault().MiniImage" data-zoom-image="/Images/@Model.images.FirstOrDefault().Name"/>
-            <div id="gal">
-                @for (int i=1;i<Model.images.Count;i++)
-                {
-                    <a href="#" data-image="/MiniImages/@Model.images.ElementAt(i).MiniImage" data-zoom-image="/Images/@Model.images.ElementAt(i).Name" >
-                        <img id="img1" src="/MiniImages/@Model.images.ElementAt(i).MiniImage" />
-                    </a>
-                }
-            </div>
-            @*<div class="flexslider">
-                    <ul class="slides">
-                        @foreach (var img in Model.images)
-                        {
-                            <li data-thumb="/MiniImages/@img.MiniImage">
-                                <img src="/Images/@img.Name" data-imagezoom="true" class="img-responsive">
-                            </li>
-                        }
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>*@
-
-            <img />
+                <img id="img1" src="/MiniImages/@Model.images.FirstOrDefault().MiniImage" data-zoom-image="/Images/@Model.images.FirstOrDefault().Name" />
+                <div id="gal">
+                    @for (int i = 0; i < Model.images.Count; i++)
+                    {
+                        <a href="#" data-image="/MiniImages/@Model.images.ElementAt(i).MiniImage" data-zoom-image="/Images/@Model.images.ElementAt(i).Name">
+                            <img id="img1" src="/MiniImages/@Model.images.ElementAt(i).MiniImage" width="100px" />
+                        </a>
+                    }
+                </div>
         </div>
         <div class="col-md-4 showcase">
             <div class="showcase-rt-top">
