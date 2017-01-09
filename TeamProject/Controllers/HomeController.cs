@@ -56,7 +56,12 @@ namespace TeamProject.Controllers
             {
                 if (userRepository.FindUser(model.email,model.Password))
                 {
-                    FormsAuthentication.RedirectFromLoginPage(model.email, true);
+                    //HttpCookie AuthCookie = FormsAuthentication.GetAuthCookie(model.email, true);
+                    //AuthCookie.Expires = DateTime.Now.AddDays(10);
+                    //Response.Cookies.Add(AuthCookie);
+                    //Response.Redirect(FormsAuthentication.GetRedirectUrl(model.email, true));
+                    //FormsAuthentication.RedirectFromLoginPage(model.email, true);
+                    FormsAuthentication.SetAuthCookie(model.email, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else

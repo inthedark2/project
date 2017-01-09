@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/main")
     @Styles.Render("~/Content/Details")
     @Scripts.Render("~/bundler/details")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="header">
@@ -26,8 +27,8 @@
                     }
                     else
                     {
-                    @Html.ActionLink("Sign up", "Registration", null, new { @class = "btn btn-default log-bar", @role = "button" })
-                    @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-default log-bar", @role = "button" })
+                        @Html.ActionLink("Sign up", "Registration", null, new { @class = "btn btn-default log-bar", @role = "button" })
+                        @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-default log-bar", @role = "button" })
                     }
                     <div class="cart box_1">
                         <a href="checkout.html">
