@@ -29,8 +29,8 @@ namespace TeamProject
             bundles.Add(new ScriptBundle("~/bundles/main").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/jquery-3.1.1.js",
-                      "~/Scripts/simpleCart.min.js"
+                      "~/Scripts/jquery-3.1.1.js"
+                      //"~/Scripts/simpleCart.min.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css/admin").Include(

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -26,6 +27,8 @@ namespace TeamProject.Controllers
             string path = "/MiniImages/";
             return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
         }    
+
+        
         public ActionResult Registration()
         {
             return View();
@@ -56,11 +59,6 @@ namespace TeamProject.Controllers
             {
                 if (userRepository.FindUser(model.email,model.Password))
                 {
-                    //HttpCookie AuthCookie = FormsAuthentication.GetAuthCookie(model.email, true);
-                    //AuthCookie.Expires = DateTime.Now.AddDays(10);
-                    //Response.Cookies.Add(AuthCookie);
-                    //Response.Redirect(FormsAuthentication.GetRedirectUrl(model.email, true));
-                    //FormsAuthentication.RedirectFromLoginPage(model.email, true);
                     FormsAuthentication.SetAuthCookie(model.email, true);
                     return RedirectToAction("Index", "Home");
                 }
@@ -74,7 +72,7 @@ namespace TeamProject.Controllers
         public ActionResult Details(int id)
         {
             Product product = postRepository.GetProductById(id);
-            HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image };
+            HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image,Quantity=product.Quantity };
             return View(model);
         }
         public ActionResult Logout()
@@ -82,5 +80,14 @@ namespace TeamProject.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        public JsonResult AddToCart(int productId,int quantity)
+        {
+
+            string email = User.Identity.Name;
+            postRepository.AddProductToCart(productId, quantity, userRepository.GetUserByEmail(email));
+            return Json("Succsess");
+        }
+
     }
 }

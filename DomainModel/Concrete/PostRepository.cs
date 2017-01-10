@@ -119,5 +119,40 @@ namespace DomainModel.Concrete
             context.Products.Remove(product);
             context.SaveChanges();
         }
+        public Basket AddBasketToUser(User user)
+        {
+            Basket basket = new Basket();
+            basket.User = user;
+            context.Basket.Add(basket);
+            context.SaveChanges();
+            return basket;
+        }
+
+        public bool AddProductToCart(int productId,int quantity,User user)
+        {
+            Basket basket = user.Basket;
+            if (user.Basket==null)
+            {
+                basket = AddBasketToUser(user);
+            }
+            //return context.Products.Include(p=>p.Image).SingleOrDefault(p => p.Id == id);
+            var p = context.Basket.Include(d => d.Products).SingleOrDefault(u => u.User.id == user.id);
+            foreach(var prod in p.Products)
+            {
+                if (prod.ProductId==productId)
+                {
+                    prod.Quantity += quantity;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            ProductInBusket product = new ProductInBusket() { Product = GetProductById(productId), Quantity = quantity,Basket=basket };
+            context.ProductsInBasket.Add(product);
+            context.SaveChanges();
+            user.Basket.Products.Add(product);
+            context.SaveChanges();
+            return true;
+
+        }
     }
 }
