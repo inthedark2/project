@@ -32,7 +32,7 @@
             @foreach (var item in Model)
             {
                 <div class="cart-header">
-                    <div class="close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+                    <div class="close" id="@item.ProductId"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
                     <div class="cart-sec simpleCart_shelfItem">
                         <div class="cart-item cyc">
                             <img src="@item.MiniImage" class="img-responsive" alt="" />
@@ -41,15 +41,35 @@
                             <ul class="qty">
                                 <li><p>Qty : @item.Quantity</p></li>
                                 <li><p>Price each : $@item.ProductPrice</p></li>
-                            </ul>    
+                            </ul>
                         </div>
                         <div class="clearfix"></div>
 
                     </div>
                 </div>
             }
-            
+
         </div>
     </div>
 </div>
 
+@section Scripts
+    {
+    <script>
+        $(".close").on("click", function () {
+            alert("hello");
+            var elm = $(this);
+            var catId = elm.attr("id");
+            alert(catId);
+            $.ajax({
+                type: 'POST',
+                url: '/home/DeleteProduct',
+                data: { id: catId},
+                success: function (result) {
+                    location.reload();
+                }
+            })
+            return false;
+        })
+    </script>
+}

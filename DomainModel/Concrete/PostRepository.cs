@@ -159,5 +159,12 @@ namespace DomainModel.Concrete
             return true;
 
         }
+        public bool DeleteProductFromBasket(int id,User user)
+        {
+            Basket basket = context.Basket.Include(pr=>pr.Products).SingleOrDefault(u => u.User.id == user.id);
+            context.ProductsInBasket.Remove(basket.Products.SingleOrDefault(p => p.ProductId == id));
+            context.SaveChanges();
+            return true;
+        }
     }
 }

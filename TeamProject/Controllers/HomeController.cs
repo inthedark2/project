@@ -92,6 +92,13 @@ namespace TeamProject.Controllers
             postRepository.AddProductToCart(productId, quantity, userRepository.GetUserByEmail(email));
             return Json("Succsess");
         }
+        [HttpPost]
+        public JsonResult DeleteProduct(int id)
+        {
+            string email = User.Identity.Name;
+            postRepository.DeleteProductFromBasket(id, userRepository.GetUserByEmail(email));
+            return Json("Succsess");
+        }
 
     }
 }
