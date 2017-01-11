@@ -106,5 +106,11 @@ namespace TeamProject.Controllers
             postRepository.DeleteProductFromBasket(id, userRepository.GetUserByEmail(email));
             return Json("Succsess");
         }
+
+        public ActionResult Category(int id)
+        {
+            string path = "/MiniImages/";
+            return View(from data in postRepository.GetProductsInCategory(id) select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage });
+        }
     }
 }

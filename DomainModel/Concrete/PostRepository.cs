@@ -23,6 +23,10 @@ namespace DomainModel.Concrete
         {
             return from data in context.Products orderby data.Id descending select data;
         }
+        public IQueryable<Product> GetProductsInCategory(int categoryId)
+        {
+            return from data in context.Products orderby data.Id descending where data.CategoryId == categoryId select data;
+        }
         public bool AddProduct(string title,string description, HttpPostedFileBase[] Images, int quantity,bool isIn,int categoryId,double price,string path,string miniImages)
         {
             Product product = new Product() { Title = title, Description = description, Quantity = quantity, IsIn = isIn, CategoryId = categoryId, AddTime = DateTime.Now,Price=price};
