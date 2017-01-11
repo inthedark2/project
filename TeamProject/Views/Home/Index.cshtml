@@ -47,6 +47,14 @@
 
 }
 
+@section Menu{
+    @foreach (var c in ViewBag.ListCategory)
+    {
+        string linkText = c.Name;
+        <li>@Html.ActionLink(linkText, "Category", new { id = c.Id })</li>
+    }
+    }
+
 
 <script>
     var btnGame = document.getElementById('btnGame');

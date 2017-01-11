@@ -16,17 +16,20 @@ namespace TeamProject.Controllers
     {
         private readonly UserRepository userRepository;
         private readonly PostRepository postRepository;
+        private readonly CategoryRepository categoryRepository;
         public HomeController()
         {
             EFContext context = new EFContext();
             userRepository = new UserRepository(context);
             postRepository = new PostRepository(context);
+            categoryRepository = new CategoryRepository(context);
         }
         public ActionResult Index()
         {
             string path = "/MiniImages/";
             ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
         }    
         public ActionResult Basket()
