@@ -128,6 +128,12 @@ namespace DomainModel.Concrete
             return basket;
         }
 
+        public ICollection<ProductInBusket> GetAllProductInBasket(string emailUser)
+        {
+            var p = context.Basket.Include(d => d.Products).SingleOrDefault(u => u.User.email == emailUser);
+            return p.Products;
+        }
+
         public bool AddProductToCart(int productId,int quantity,User user)
         {
             Basket basket = user.Basket;
@@ -135,7 +141,6 @@ namespace DomainModel.Concrete
             {
                 basket = AddBasketToUser(user);
             }
-            //return context.Products.Include(p=>p.Image).SingleOrDefault(p => p.Id == id);
             var p = context.Basket.Include(d => d.Products).SingleOrDefault(u => u.User.id == user.id);
             foreach(var prod in p.Products)
             {

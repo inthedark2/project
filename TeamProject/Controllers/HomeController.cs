@@ -27,7 +27,11 @@ namespace TeamProject.Controllers
             string path = "/MiniImages/";
             return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
         }    
-
+        public ActionResult Basket()
+        {
+            string path = "/MiniImages/";
+            return View(from data in postRepository.GetAllProductInBasket(User.Identity.Name) select new BasketViewModel { ProductId = data.ProductId, ProductPrice = postRepository.GetProductById(data.ProductId).Price, Quantity = data.Quantity, MiniImage = path + postRepository.GetProductById(data.ProductId).Image.FirstOrDefault().MiniImage });
+        }
         
         public ActionResult Registration()
         {
