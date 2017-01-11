@@ -31,7 +31,21 @@
     </div>
 </div>
 
+@section Basket{
+        <div class="cart box_1">
+    @{
+        string linkText = "$" + @ViewBag.TotalPrice + "(" + ViewBag.CountProductInBasket + ")";
 
+    }
+    <h3>
+        <div class="total">
+            @Html.ActionLink(linkText, "basket")
+        </div>
+    </h3>
+    <div class="clearfix"> </div>
+</div>
+
+}
 
 
 <script>

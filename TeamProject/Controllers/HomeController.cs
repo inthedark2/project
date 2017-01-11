@@ -25,11 +25,15 @@ namespace TeamProject.Controllers
         public ActionResult Index()
         {
             string path = "/MiniImages/";
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
             return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
         }    
         public ActionResult Basket()
         {
             string path = "/MiniImages/";
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
             return View(from data in postRepository.GetAllProductInBasket(User.Identity.Name) select new BasketViewModel { ProductId = data.ProductId, ProductPrice = postRepository.GetProductById(data.ProductId).Price, Quantity = data.Quantity, MiniImage = path + postRepository.GetProductById(data.ProductId).Image.FirstOrDefault().MiniImage });
         }
         
@@ -99,6 +103,5 @@ namespace TeamProject.Controllers
             postRepository.DeleteProductFromBasket(id, userRepository.GetUserByEmail(email));
             return Json("Succsess");
         }
-
     }
 }

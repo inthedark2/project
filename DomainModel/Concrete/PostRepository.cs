@@ -166,5 +166,19 @@ namespace DomainModel.Concrete
             context.SaveChanges();
             return true;
         }
+        public int GetCountOfBasket(User user)
+        {
+            return GetAllProductInBasket(user.email).Count;
+        }
+        public double TotalBasketPrice(User user)
+        {
+            var allProduct = GetAllProductInBasket(user.email);
+            double price=0;
+            foreach(var p in allProduct)
+            {
+                price = price + GetProductById(p.ProductId).Price * p.Quantity;
+            }
+            return price;
+        }
     }
 }

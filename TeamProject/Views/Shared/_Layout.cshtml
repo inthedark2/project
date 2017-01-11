@@ -30,17 +30,7 @@
                         @Html.ActionLink("Sign up", "Registration", null, new { @class = "btn btn-default log-bar", @role = "button" })
                         @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-default log-bar", @role = "button" })
                     }
-                    <div class="cart box_1">
-                        <a href="checkout.html">
-                            <h3>
-                                <div class="total">
-                                    <span class="simpleCart_total"></span>(<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)
-                                </div>
-                            </h3>
-                        </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                        <div class="clearfix"> </div>
-                    </div>
+                    @RenderSection("Basket", false)
                 </div>
                 <div class="clearfix"></div>
             </div>
