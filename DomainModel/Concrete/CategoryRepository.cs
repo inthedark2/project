@@ -16,7 +16,7 @@ namespace DomainModel.Concrete
         }
         public IQueryable<Category> GetAllCategory()
         {
-            return from data in context.Category select data;
+            return from data in context.Category orderby data.Id descending select data;
         }
         public bool AddCategory(string name,string description)
         {

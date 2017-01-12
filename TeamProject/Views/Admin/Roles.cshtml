@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TeamProject.Models.RolesViewModel>
-
+﻿@model PagedList.IPagedList<TeamProject.Models.RolesViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Roles";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -11,7 +11,7 @@
     @Html.ActionLink("Create New", "AddRole")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.QuantityUsers)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
     <tr>
@@ -43,7 +43,10 @@
 }
 
 </table>
-
+<br />
+<center>
+    @Html.PagedListPager(Model, page => Url.Action("Roles", new { page }))
+</center>
 
 @section Scripts
 {

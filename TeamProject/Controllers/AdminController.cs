@@ -119,9 +119,12 @@ namespace TeamProject.Controllers
             return View(allproduct);
         }
         //Category
-        public ActionResult Category()
+        public ActionResult Category(int? page)
         {
-            return View(from data in categoryRepository.GetAllCategory() select new CategoryViewModel { Id = data.Id, Name = data.Name, Quantity = data.Posts.Count });
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            var cat = from data in categoryRepository.GetAllCategory() select new CategoryViewModel { Id = data.Id, Name = data.Name, Quantity = data.Posts.Count };
+            return View(cat.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult AddCategory()
         {
@@ -175,9 +178,11 @@ namespace TeamProject.Controllers
         }
 
         //Users
-        public ActionResult Users()
+        public ActionResult Users(int? page)
         {
-            return View(from data in userRepository.Users() select new UsersViewModel() { Id = data.id, Email = data.email, time = data.registeredDate });
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return View((from data in userRepository.Users() select new UsersViewModel() { Id = data.id, Email = data.email, time = data.registeredDate }).ToPagedList(pageNumber, pageSize));
         }
         public ActionResult EditUser(int id)
         {
@@ -203,9 +208,11 @@ namespace TeamProject.Controllers
             return View();
         }
         //Roles
-        public ActionResult Roles()
+        public ActionResult Roles(int? page)
         {
-            return View(from data in userRepository.GetAllRoles() select new RolesViewModel() { Id=data.Id,Name=data.Name,Description=data.Description,QuantityUsers=data.Users.Count});
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return View((from data in userRepository.GetAllRoles() select new RolesViewModel() { Id=data.Id,Name=data.Name,Description=data.Description,QuantityUsers=data.Users.Count}).ToPagedList(pageNumber, pageSize));
         }
         public ActionResult AddRole()
         {

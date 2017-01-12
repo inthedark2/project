@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TeamProject.Models.CategoryViewModel>
-
+﻿@model PagedList.IPagedList<TeamProject.Models.CategoryViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Category";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -9,7 +9,7 @@
     @Html.ActionLink("Create New", "AddCategory")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -17,7 +17,7 @@
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
     <tr>
@@ -35,6 +35,10 @@
 }
 
 </table>
+<br />
+<center>
+@Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+</center>
 @section Scripts
 {
     <script>

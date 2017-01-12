@@ -70,7 +70,7 @@ namespace DomainModel.Concrete
 
         public IQueryable<User> Users()
         {
-            return context.Users;
+            return from data in context.Users orderby data.id descending select data;
         }
 
         public User GetUserByEmail(string email)
@@ -91,7 +91,7 @@ namespace DomainModel.Concrete
 
         public IQueryable<Role> GetAllRoles()
         {
-            return context.Roles;
+            return from data in context.Roles orderby data.Id descending select data;
         }
         public bool AddRole(string name,string description)
         {

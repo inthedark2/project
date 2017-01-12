@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TeamProject.Models.UsersViewModel>
-
+﻿@model PagedList.IPagedList<TeamProject.Models.UsersViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -9,7 +9,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.Id)
         </th>
@@ -19,7 +19,7 @@
         <th>
             @Html.DisplayNameFor(model => model.time)
         </th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
     <tr>
@@ -41,3 +41,7 @@
 }
 
 </table>
+<br />
+<center>
+    @Html.PagedListPager(Model, page => Url.Action("Users", new { page }))
+</center>
