@@ -148,20 +148,24 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TestAutoFacController.cs" />
+    <Compile Include="Filter\AuthorizeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddCategoryModel.cs" />
     <Compile Include="Models\AddProductModel.cs" />
+    <Compile Include="Models\AddRoleModel.cs" />
     <Compile Include="Models\BasketViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\EditCtegoryModel.cs" />
     <Compile Include="Models\EditProductModel.cs" />
+    <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\HomeProductViewModel.cs" />
     <Compile Include="Models\IndexHomeViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
+    <Compile Include="Models\RolesViewModel.cs" />
     <Compile Include="Models\UserProfilesViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -580,6 +584,10 @@
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Admin\Roles.cshtml" />
+    <Content Include="Views\Admin\AddRole.cshtml" />
+    <Content Include="Views\Admin\EditRole.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

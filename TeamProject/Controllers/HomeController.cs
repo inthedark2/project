@@ -43,7 +43,7 @@ namespace TeamProject.Controllers
             ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
             return View(from data in postRepository.GetAllProductInBasket(User.Identity.Name) select new BasketViewModel { ProductId = data.ProductId, ProductPrice = postRepository.GetProductById(data.ProductId).Price, Quantity = data.Quantity, MiniImage = path + postRepository.GetProductById(data.ProductId).Image.FirstOrDefault().MiniImage });
         }
-        
+       
         public ActionResult Registration()
         {
             return View();
@@ -90,6 +90,7 @@ namespace TeamProject.Controllers
             HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image,Quantity=product.Quantity };
             return View(model);
         }
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -103,6 +104,7 @@ namespace TeamProject.Controllers
             postRepository.AddProductToCart(productId, quantity, userRepository.GetUserByEmail(email));
             return Json("Succsess");
         }
+        [Authorize]
         [HttpPost]
         public JsonResult DeleteProduct(int id)
         {

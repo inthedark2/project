@@ -56,9 +56,9 @@
 
 </table>
 <br />
-@*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount*@
-
+<center></center>
 @Html.PagedListPager(Model, page => Url.Action("Products", new { page }))
+</center>
 @section Scripts
 {
     <script>

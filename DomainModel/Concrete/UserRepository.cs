@@ -39,6 +39,10 @@ namespace DomainModel.Concrete
                 user.password = crypto.Compute(user.password);
                 user.PasswordSalt = crypto.Salt;
                 user.registeredDate = DateTime.Now;
+                if (GetRoleByName("Client")!=null)
+                {
+                    user.Role = GetRoleByName("Client");
+                }
                 context.Users.Add(user);
                 context.SaveChanges();
             }
@@ -73,5 +77,50 @@ namespace DomainModel.Concrete
         {
             return this.Users().SingleOrDefault(u=>u.email==email);
         }
+        public User GetUserById(int id)
+        {
+            return context.Users.SingleOrDefault(u => u.id == id);
+        }
+        public void EditUser(int id,string Email,int roleId)
+        {
+            User user = GetUserById(id);
+            user.email = Email;
+            user.Role = GetRoleById(roleId);
+            context.SaveChanges();
+        }
+
+        public IQueryable<Role> GetAllRoles()
+        {
+            return context.Roles;
+        }
+        public bool AddRole(string name,string description)
+        {
+            Role role = new Role() { Name = name, Description = description };
+            context.Roles.Add(role);
+            context.SaveChanges();
+            return true;
+        }
+        public Role GetRoleById(int id)
+        {
+            return context.Roles.SingleOrDefault(r => r.Id == id);
+        }
+        public void EditRole(int id,string name,string description)
+        {
+            Role role = GetRoleById(id);
+            role.Name = name;
+            role.Description = description;
+            context.SaveChanges();
+        }
+
+        public void DeleteRole(Role role)
+        {
+            context.Roles.Remove(role);
+            context.SaveChanges();
+        }
+        public Role GetRoleByName(string name)
+        {
+            return context.Roles.SingleOrDefault(r => r.Name == name);
+        }
+
     }
 }

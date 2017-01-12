@@ -13,6 +13,8 @@ using System.Web.Mvc;
 using TeamProject.Models;
 using PagedList.Mvc;
 using PagedList;
+using TeamProject.Filter;
+
 namespace TeamProject.Controllers
 {
     public class AdminController : Controller
@@ -20,6 +22,7 @@ namespace TeamProject.Controllers
         private readonly PostRepository postRepository;
         public readonly CategoryRepository categoryRepository;
         private readonly UserRepository userRepository;
+        
         public AdminController()
         {
             EFContext context = new EFContext();
@@ -28,10 +31,13 @@ namespace TeamProject.Controllers
             userRepository = new UserRepository(context);
 
         }
+        [AuthorizeFilter("Admin")]
         public ActionResult Index()
         {
             return View();
         }
+
+        //Products
         public ActionResult Products(int? page)
         {
             int pageSize = 2;
@@ -93,6 +99,26 @@ namespace TeamProject.Controllers
             return Json("Error");
         }
 
+        public ActionResult DetailsProduct(int id)
+        {
+            var product = postRepository.GetProductById(id);
+            ProductsViewModel model = new ProductsViewModel()
+            {
+                Id = product.Id,
+                title = product.Title,
+                category = product.category.Name,
+                Quantity = product.Quantity,
+                Time = product.AddTime,
+                Photos = product.Image.Select(n => n.Name)
+            };
+            return View(model);
+        }
+        public ActionResult SearchProduct(string name)
+        {
+            var allproduct = postRepository.GetAllProduct().Where(a => a.Title.Contains(name)).ToList();
+            return View(allproduct);
+        }
+        //Category
         public ActionResult Category()
         {
             return View(from data in categoryRepository.GetAllCategory() select new CategoryViewModel { Id = data.Id, Name = data.Name, Quantity = data.Posts.Count });
@@ -147,28 +173,89 @@ namespace TeamProject.Controllers
             }
             return Json("Error");
         }
+
+        //Users
         public ActionResult Users()
         {
             return View(from data in userRepository.Users() select new UsersViewModel() { Id = data.id, Email = data.email, time = data.registeredDate });
         }
-        public ActionResult DetailsProduct(int id)
+        public ActionResult EditUser(int id)
         {
-            var product = postRepository.GetProductById(id);
-            ProductsViewModel model = new ProductsViewModel()
+            User user = userRepository.GetUserById(id);
+            if (user!=null)
             {
-                Id = product.Id,
-                title = product.Title,
-                category = product.category.Name,
-                Quantity = product.Quantity,
-                Time = product.AddTime,
-                Photos = product.Image.Select(n => n.Name)
-            };
-            return View(model);
+                EditUserModel model = new EditUserModel() { Id = user.id, Email = user.email,RoleId=user.Role.Id };
+                ViewBag.ListCategory = userRepository.GetAllRoles().ToList();
+                return View(model);
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
         }
-        public ActionResult SearchProduct(string name)
+        [HttpPost]
+        public ActionResult EditUser(EditUserModel model)
         {
-            var allproduct = postRepository.GetAllProduct().Where(a => a.Title.Contains(name)).ToList();
-            return View(allproduct);
+            if (userRepository.GetUserById(model.Id)!=null)
+            {
+                userRepository.EditUser(model.Id, model.Email, model.RoleId);
+                return RedirectToAction("Users", "Admin");
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
+        }
+        //Roles
+        public ActionResult Roles()
+        {
+            return View(from data in userRepository.GetAllRoles() select new RolesViewModel() { Id=data.Id,Name=data.Name,Description=data.Description,QuantityUsers=data.Users.Count});
+        }
+        public ActionResult AddRole()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddRole(AddRoleModel model)
+        {
+            if (userRepository.AddRole(model.Name,model.Description))
+            {
+                return RedirectToAction("Roles");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Сталась помилка");
+                return View();
+            }
+        } 
+        public ActionResult EditRole(int id)
+        {
+            Role role = userRepository.GetRoleById(id);
+            if (role!=null)
+            {
+                RolesViewModel model = new RolesViewModel() { Id = role.Id, Name = role.Name, Description = role.Description };
+                return View(model);
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditRole(RolesViewModel model)
+        {
+            if (userRepository.GetRoleById(model.Id) != null)
+            {
+                userRepository.EditRole(model.Id, model.Name, model.Description);
+                return RedirectToAction("Roles", "Admin");
+            }
+            ModelState.AddModelError("", "Сталась помилка");
+            return View();
+        }
+        [HttpPost]
+        public JsonResult DeleteRole(int id)
+        {
+            var delRole = userRepository.GetRoleById(id);
+            if (delRole != null && delRole.Users.Count == 0)
+            {
+                userRepository.DeleteRole(delRole);
+                return Json("Succsess");
+            }
+            return Json("Error");
         }
     }
 }
