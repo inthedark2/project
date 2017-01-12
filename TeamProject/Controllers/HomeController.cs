@@ -9,7 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TeamProject.Models;
-
+using PagedList.Mvc;
+using PagedList;
 namespace TeamProject.Controllers
 {
     public class HomeController : Controller
@@ -24,13 +25,16 @@ namespace TeamProject.Controllers
             postRepository = new PostRepository(context);
             categoryRepository = new CategoryRepository(context);
         }
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             string path = "/MiniImages/";
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
-            return View(from data in postRepository.GetAllProduct() select new IndexHomeViewModel {Id=data.Id,Title=data.Title,Price=data.Price,miniImage= path+data.Image.FirstOrDefault().MiniImage });
+            var posts = from data in postRepository.GetAllProduct() select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage };
+            return View(posts.ToPagedList(pageNumber, pageSize));
         }    
         public ActionResult Basket()
         {

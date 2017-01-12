@@ -11,7 +11,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TeamProject.Models;
-
+using PagedList.Mvc;
+using PagedList;
 namespace TeamProject.Controllers
 {
     public class AdminController : Controller
@@ -31,9 +32,12 @@ namespace TeamProject.Controllers
         {
             return View();
         }
-        public ActionResult Products()
+        public ActionResult Products(int? page)
         {
-            return View(from data in postRepository.GetAllProduct() select new ProductsViewModel { Id = data.Id, title = data.Title, category = data.category.Name, Quantity = data.Quantity, Time = data.AddTime,Price=data.Price });
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            var items = from data in postRepository.GetAllProduct() select new ProductsViewModel { Id = data.Id, title = data.Title, category = data.category.Name, Quantity = data.Quantity, Time = data.AddTime, Price = data.Price };
+            return View(items.ToPagedList(pageNumber,pageSize));
         }
         public ActionResult AddProduct()
         {

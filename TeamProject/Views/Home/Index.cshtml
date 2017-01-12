@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TeamProject.Models.IndexHomeViewModel>
+﻿@model PagedList.IPagedList<TeamProject.Models.IndexHomeViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,14 +26,6 @@
                     </div>
                 </div>
                 @*<div class="item">
-                    <img src="./ContentImagesRun.jpg" alt="...">
-                    <div class="carousel-caption car-re-posn">
-                        <h3>AirMax</h3>
-                        <h4>You feel to fall</h4>
-                        <span class="color-bar"></span>
-                    </div>
-                </div>
-                <div class="item">
                     <img src="./ContentImagesRun.jpg" alt="...">
                     <div class="carousel-caption car-re-posn">
                         <h3>AirMax</h3>
@@ -81,6 +74,7 @@
 
     </div>
 </div>
+<center>@Html.PagedListPager(Model, page => Url.Action("index", new { page }))</center>
 
 @section Basket{
         <div class="cart box_1">

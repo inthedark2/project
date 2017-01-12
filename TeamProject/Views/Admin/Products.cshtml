@@ -1,5 +1,6 @@
-﻿@model IEnumerable<TeamProject.Models.ProductsViewModel>
-
+﻿@model PagedList.IPagedList<TeamProject.Models.ProductsViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -9,7 +10,7 @@
     @Html.ActionLink("Create New", "AddProduct")
 </p>
 <table class="table">
-    <tr>
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.title)
         </th>
@@ -26,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
     <tr>
@@ -54,6 +55,10 @@
 }
 
 </table>
+<br />
+@*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount*@
+
+@Html.PagedListPager(Model, page => Url.Action("Products", new { page }))
 @section Scripts
 {
     <script>

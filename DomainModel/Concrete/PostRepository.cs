@@ -135,6 +135,7 @@ namespace DomainModel.Concrete
         public ICollection<ProductInBusket> GetAllProductInBasket(string emailUser)
         {
             var p = context.Basket.Include(d => d.Products).SingleOrDefault(u => u.User.email == emailUser);
+            
             return p.Products;
         }
 
@@ -172,11 +173,17 @@ namespace DomainModel.Concrete
         }
         public int GetCountOfBasket(User user)
         {
+            if (user == null)
+                return 0;
             return GetAllProductInBasket(user.email).Count;
         }
         public double TotalBasketPrice(User user)
         {
+            if (user == null)
+                return 0;
             var allProduct = GetAllProductInBasket(user.email);
+            if (allProduct==null)
+                return 0;
             double price=0;
             foreach(var p in allProduct)
             {
