@@ -122,5 +122,21 @@ namespace DomainModel.Concrete
             return context.Roles.SingleOrDefault(r => r.Name == name);
         }
 
+        public void EditProfile(int userId,string name,string surname,string address,string phone)
+        {
+            User user = GetUserById(userId);
+            if (user.Profile==null)
+            {
+                CreateProfile(user, name, surname, address, phone);
+            }
+            else
+            {
+                user.Profile.Name = name;
+                user.Profile.Surname = surname;
+                user.Profile.Address = address;
+                user.Profile.Phone = phone;
+                context.SaveChanges();
+            }
+        }
     }
 }

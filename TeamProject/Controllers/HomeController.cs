@@ -33,7 +33,7 @@ namespace TeamProject.Controllers
             ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
-            var posts = from data in postRepository.GetAllProduct() select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage };
+            var posts = from data in postRepository.GetAllProduct() select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage,Description=data.Description };
             return View(posts.ToPagedList(pageNumber, pageSize));
         }    
         public ActionResult Basket()
@@ -41,11 +41,15 @@ namespace TeamProject.Controllers
             string path = "/MiniImages/";
             ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
             ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             return View(from data in postRepository.GetAllProductInBasket(User.Identity.Name) select new BasketViewModel { ProductId = data.ProductId, ProductPrice = postRepository.GetProductById(data.ProductId).Price, Quantity = data.Quantity, MiniImage = path + postRepository.GetProductById(data.ProductId).Image.FirstOrDefault().MiniImage });
         }
        
         public ActionResult Registration()
         {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             return View();
         }
         [HttpPost]
@@ -64,6 +68,9 @@ namespace TeamProject.Controllers
 
         public ActionResult Login()
         {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             return View();
         }
         [HttpPost]
@@ -86,6 +93,9 @@ namespace TeamProject.Controllers
         }
         public ActionResult Details(int id)
         {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             Product product = postRepository.GetProductById(id);
             HomeProductViewModel model = new HomeProductViewModel() { Id = product.Id, Title = product.Title, Description = product.Description, Price = product.Price, images = product.Image,Quantity=product.Quantity };
             return View(model);
@@ -115,8 +125,52 @@ namespace TeamProject.Controllers
 
         public ActionResult Category(int id)
         {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
             string path = "/MiniImages/";
-            return View(from data in postRepository.GetProductsInCategory(id) select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage });
+            return View(from data in postRepository.GetProductsInCategory(id) select new IndexHomeViewModel { Id = data.Id, Title = data.Title, Price = data.Price, miniImage = path + data.Image.FirstOrDefault().MiniImage,Description=data.Description });
+        }
+
+        [Authorize]
+        public ActionResult Profile()
+        {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
+            User user = userRepository.GetUserByEmail(User.Identity.Name);
+            ProfileViewModel model = new ProfileViewModel() { Id=user.id,Email=user.email};
+            if (user.Profile!=null)
+            {
+                model.Address = user.Profile.Address;
+                model.Phone = user.Profile.Phone;
+                model.FullName = user.Profile.Name + user.Profile.Surname;
+            }
+            return View(model);
+        }
+        [Authorize]
+        public ActionResult EditProfile()
+        {
+            ViewBag.TotalPrice = postRepository.TotalBasketPrice(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.CountProductInBasket = postRepository.GetCountOfBasket(userRepository.GetUserByEmail(User.Identity.Name));
+            ViewBag.ListCategory = categoryRepository.GetAllCategory().ToList();
+            User user = userRepository.GetUserByEmail(User.Identity.Name);
+            EditProfileModel model = new EditProfileModel() { Id=user.id};
+            if (user.Profile!=null)
+            {
+                model.Name = user.Profile.Name;
+                model.Surname = user.Profile.Surname;
+                model.Address = user.Profile.Address;
+                model.Phone = user.Profile.Phone;
+            }
+            return View(model);   
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditProfile(EditProfileModel model)
+        {
+            userRepository.EditProfile(model.Id, model.Name, model.Surname, model.Address, model.Phone);
+            return RedirectToAction("Profile");
         }
     }
 }

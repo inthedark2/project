@@ -22,7 +22,7 @@
                 <div class="login-bars">
                     @if (Request.IsAuthenticated)
                     {
-                        @Html.ActionLink(User.Identity.Name, "Profiles", null, new { @class = "btn btn-default log-bar", @role = "button" })
+                        @Html.ActionLink(User.Identity.Name, "Profile", null, new { @class = "btn btn-default log-bar", @role = "button" })
                         @Html.ActionLink("Log out", "logout", null, new { @class = "btn btn-default log-bar", @role = "button" })
                     }
                     else

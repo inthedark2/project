@@ -60,14 +60,17 @@
                                 <h3>@item.Title</h3>
                             </div>
                             <div class="pull-right styl-price">
-                                <p><a href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$@item.Price</span></a></p>
-                            </div>
+                                <p><a href="#" class="item_add"><span class="addToCart glyphicon glyphicon-shopping-cart grid-cart" id="@item.Id" aria-hidden="true"></span> <span class=" item_price">$@item.Price</span></a></p>
+                            </div>   
                             <div class="clearfix"></div>
+                            <div style="height:30px">
+                                <p style="text-overflow: ellipsis">@item.Description</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="quick-view">
-                    @Html.ActionLink("Details", "details", new { id = item.Id });
+                    @Html.ActionLink("Details", "details", new { id = item.Id })
                 </div>
             </div>
         }
@@ -99,7 +102,23 @@
         <li>@Html.ActionLink(linkText, "Category", new { id = c.Id })</li>
     }
     }
-
+@section Scripts{
+    <script>
+        $(".addToCart").on("click", function () {
+            var elm = $(this);
+            var id = elm.attr("id");
+            $.ajax({
+                type: 'POST',
+                url: '/home/AddToCart',
+                data: { productId: id,quantity:1},
+                success: function (result) {
+                    location.reload();
+                }
+            })
+            return false;
+        })
+    </script>
+    }
 
 <script>
     var btnGame = document.getElementById('btnGame');

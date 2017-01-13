@@ -19,14 +19,40 @@
                                 <p><a href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$@item.Price</span></a></p>
                             </div>
                             <div class="clearfix"></div>
+                            <div style="height:30px">
+                                <p style="text-overflow: ellipsis">@item.Description</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="quick-view">
-                    @Html.ActionLink("Details", "details", new { id = item.Id });
+                    @Html.ActionLink("Details", "details", new { id = item.Id })
                 </div>
             </div>
         }
 
     </div>
 </div>
+@section Basket{
+    <div class="cart box_1">
+        @{
+            string linkText = "$" + @ViewBag.TotalPrice + "(" + ViewBag.CountProductInBasket + ")";
+
+        }
+        <h3>
+            <div class="total">
+                @Html.ActionLink(linkText, "basket")
+            </div>
+        </h3>
+        <div class="clearfix"> </div>
+    </div>
+
+}
+
+@section Menu{
+    @foreach (var c in ViewBag.ListCategory)
+    {
+        string linkText = c.Name;
+        <li>@Html.ActionLink(linkText, "Category", new { id = c.Id })</li>
+    }
+}

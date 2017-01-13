@@ -1,0 +1,50 @@
+﻿@model TeamProject.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>@Model.FullName</td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <td>Phone number:</td>
+            <td>@Model.Phone</td>
+        </tr>
+    </table>
+    @Html.ActionLink("Edit profile", "EditProfile")
+</div>
+@section Basket{
+    <div class="cart box_1">
+        @{
+            string linkText = "$" + @ViewBag.TotalPrice + "(" + ViewBag.CountProductInBasket + ")";
+
+        }
+        <h3>
+            <div class="total">
+                @Html.ActionLink(linkText, "basket")
+            </div>
+        </h3>
+        <div class="clearfix"> </div>
+    </div>
+
+}
+
+@section Menu{
+    @foreach (var c in ViewBag.ListCategory)
+    {
+        string linkText = c.Name;
+        <li>@Html.ActionLink(linkText, "Category", new { id = c.Id })</li>
+    }
+}

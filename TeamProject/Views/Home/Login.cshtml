@@ -36,7 +36,29 @@
         </div>
     </div>
 }
+@section Basket{
+    <div class="cart box_1">
+        @{
+            string linkText = "$" + @ViewBag.TotalPrice + "(" + ViewBag.CountProductInBasket + ")";
 
+        }
+        <h3>
+            <div class="total">
+                @Html.ActionLink(linkText, "basket")
+            </div>
+        </h3>
+        <div class="clearfix"> </div>
+    </div>
+
+}
+
+@section Menu{
+    @foreach (var c in ViewBag.ListCategory)
+    {
+        string linkText = c.Name;
+        <li>@Html.ActionLink(linkText, "Category", new { id = c.Id })</li>
+    }
+}
 
 
 @section Scripts {
