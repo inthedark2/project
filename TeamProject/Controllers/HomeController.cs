@@ -18,12 +18,14 @@ namespace TeamProject.Controllers
         private readonly UserRepository userRepository;
         private readonly PostRepository postRepository;
         private readonly CategoryRepository categoryRepository;
+        private readonly OrderRepository orderRepository;
         public HomeController()
         {
             EFContext context = new EFContext();
             userRepository = new UserRepository(context);
             postRepository = new PostRepository(context);
             categoryRepository = new CategoryRepository(context);
+            orderRepository = new OrderRepository(context);
         }
         public ActionResult Index(int? page)
         {
@@ -171,6 +173,29 @@ namespace TeamProject.Controllers
         {
             userRepository.EditProfile(model.Id, model.Name, model.Surname, model.Address, model.Phone);
             return RedirectToAction("Profile");
+        }
+        [Authorize]
+        public ActionResult Order()
+        {
+            User user = userRepository.GetUserByEmail(User.Identity.Name);
+            OrderViewModel model = new OrderViewModel() {Name=user.Profile.Name,Surname=user.Profile.Surname,Address=user.Profile.Address,Phone=user.Profile.Phone };
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Order(OrderViewModel model)
+        {
+            User user = userRepository.GetUserByEmail(User.Identity.Name);
+            userRepository.EditProfile(user.id, model.Name, model.Surname, model.Address, model.Phone);
+            orderRepository.NewOrder(user);
+            return RedirectToAction("Profile");
+        }
+
+        public ActionResult MyOrders()
+        {
+            //var order = orderRepository.GetOrder(userRepository.GetUserByEmail(User.Identity.Name));
+            //MyOrdersViewModel model = new MyOrdersViewModel() {Id=o }
+            return View( from data in orderRepository.GetOrder(userRepository.GetUserByEmail(User.Identity.Name)) select new MyOrdersViewModel { Id=data.Id,Name="name",Price=666,Quantity=10});
         }
     }
 }

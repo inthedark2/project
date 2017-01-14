@@ -21,5 +21,8 @@ namespace DomainModel.Entities
         public DbSet<Images> Images { get; set; }
         public DbSet<Basket> Basket { get; set; }
         public DbSet<ProductInBusket> ProductsInBasket { get; set; }
+        public DbSet<ProductInOrder> ProductsInOrder { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

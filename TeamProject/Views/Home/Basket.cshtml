@@ -26,7 +26,7 @@
                 <div class="clearfix"> </div>
             </ul>
             <div class="clearfix"></div>
-            <a class="order" href="#">Place Order</a>
+            @Html.ActionLink("Place Order","Order",null,new { @class = "order" })
         </div>
         <div class="col-md-9 cart-items">
             <h1>My Shopping Bag (@ViewBag.CountProductInBasket)</h1>
@@ -82,16 +82,26 @@
         $(".close").on("click", function () {
             var elm = $(this);
             var catId = elm.attr("id");
-            alert(catId);
             $.ajax({
                 type: 'POST',
                 url: '/home/DeleteProduct',
-                data: { id: catId},
+                data: { id: catId },
                 success: function (result) {
                     location.reload();
                 }
             })
             return false;
-        })
+        });
+        //$(".order").on("click", function () {
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '/home/Order',
+        //        data: { id: catId },
+        //        success: function (result) {
+        //            location.reload();
+        //        }
+        //    })
+        //    return false;
+        //})
     </script>
 }

@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace DomainModel.Entities
 {
-    public class ProductInBusket
+    public class OrderStatus
     {
         [Key]
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-        public int Quantity { get; set; }
-        public int BasketId { get; set; }
-        public Basket Basket { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
