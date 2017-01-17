@@ -13,5 +13,10 @@ namespace TeamProject.Controllers
         {
             return View();
         }
+
+        public ActionResult SearchTestGitCommit()
+        {
+            return View();
+        }
     }
 }
