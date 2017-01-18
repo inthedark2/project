@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BLL.Helpers;
 using DomainModel;
 using DomainModel.Abstract;
+using BLL.ViewModel;
 
 namespace BLL.Concrete
 {
@@ -17,6 +18,12 @@ namespace BLL.Concrete
         {
             _userRepository = userRepository;
         }
+
+        public IQueryable<UserViewModel> GetListUsers()
+        {
+            throw new NotImplementedException();
+        }
+
         public UserStatus Login(string login, string password)
         {
             var user = _userRepository.FindUser(login, password);

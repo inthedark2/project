@@ -23,5 +23,10 @@ namespace TeamProject.Controllers
             return View();
         }
 
+        public ActionResult UserSearch(string email)
+        {
+            var allusers = _userProvider.GetListUsers().Where(a => a.Email.Contains(email)).ToList();
+            return View(allusers);
+        }
     }
 }

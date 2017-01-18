@@ -12,5 +12,6 @@ namespace DomainModel.Abstract
         bool FindUser(string email, string password);
         IQueryable<User> Users();
         User GetUserByEmail(string email);
+        IQueryable<User> GetAllUsers();
     }
 }

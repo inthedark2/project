@@ -597,13 +597,13 @@
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Home\Order.cshtml" />
     <Content Include="Views\Home\MyOrders.cshtml" />
+    <Content Include="Views\Users\UserSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ContentImages\" />
     <Folder Include="MiniImages\" />
     <Folder Include="Views\TestAutoFac\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

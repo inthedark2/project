@@ -138,5 +138,11 @@ namespace DomainModel.Concrete
                 context.SaveChanges();
             }
         }
+
+        public IQueryable<User> GetAllUsers()
+        {
+            IQueryable<User> listUsers = from data in context.Set<User>().AsQueryable() select data;
+            return listUsers;
+        }
     }
 }
