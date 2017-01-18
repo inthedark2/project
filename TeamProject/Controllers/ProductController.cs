@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace TeamProject.Controllers
 {
     public class ProductController : Controller
     {
+
         // GET: Product
         public ActionResult Index()
         {

@@ -148,6 +148,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TestAutoFacController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filter\AuthorizeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -602,6 +603,7 @@
     <Folder Include="ContentImages\" />
     <Folder Include="MiniImages\" />
     <Folder Include="Views\TestAutoFac\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

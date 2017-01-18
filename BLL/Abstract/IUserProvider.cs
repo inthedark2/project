@@ -1,4 +1,5 @@
 ﻿using BLL.Helpers;
+using BLL.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace BLL.Abstract
     public interface IUserProvider
     {
         UserStatus Login(string login, string password);
+
+        IQueryable<UserViewModel> GetListUsers();
     }
 }
